@@ -6,15 +6,15 @@ import (
 )
 
 type BaseRewardService struct {
-	baseRewardRepository repository.BaseRewardRepositoryInterface
+	repository repository.BaseRewardRepositoryInterface
 }
 
-func NewBaseRewardService(baseRewardRepository repository.BaseRewardRepositoryInterface) *BaseRewardService {
+func NewBaseRewardService(repository repository.BaseRewardRepositoryInterface) *BaseRewardService {
 	return &BaseRewardService{
-		baseRewardRepository: baseRewardRepository,
+		repository: repository,
 	}
 }
 
 func (s *BaseRewardService) GetBaseReward() (entity.BaseReward, error) {
-	return s.baseRewardRepository.GetById(1)
+	return s.repository.GetById(1)
 }

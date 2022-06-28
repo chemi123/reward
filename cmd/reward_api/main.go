@@ -18,7 +18,8 @@ func inject() *endpoint.RewardApiServer {
 	}
 
 	baseRewardRepository := repository_impl.NewBaseRewardRepository(db)
-	getRewardsService := service.NewGetRewardsService(baseRewardRepository)
+	incentiveRepository := repository_impl.NewIncentiveRepository(db)
+	getRewardsService := service.NewGetRewardsService(baseRewardRepository, incentiveRepository)
 	rewardApiServer := endpoint.NewRewardApiServer(getRewardsService)
 	return rewardApiServer
 }

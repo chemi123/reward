@@ -8,25 +8,37 @@ import (
 
 type GetRewardsService struct {
 	baseRewardService *BaseRewardService
+	incentiveService  *IncentiveService
 }
 
-func NewGetRewardsService(baseRewardRepository repository.BaseRewardRepositoryInterface) *GetRewardsService {
+func NewGetRewardsService(
+	baseRewardRepository repository.BaseRewardRepositoryInterface,
+	incentiveRepository repository.IncentiveRepositoryInterface,
+) *GetRewardsService {
 	return &GetRewardsService{
 		baseRewardService: NewBaseRewardService(
 			baseRewardRepository,
 		),
-		// initialize with other service used in GetRewrdsService
+		incentiveService: NewIncentiveService(
+			incentiveRepository,
+		),
 	}
 }
 
 // injection等の確認をしたいだけなのでbaserewardをgetしても空のレスポンスを返す
 func (s *GetRewardsService) GetRewards() (*rewardapi.Response, error) {
 	// TODO: goroutineを使って並列化してjoinして返す
-	basereward, err := s.baseRewardService.GetBaseReward()
-	if err != nil {
-		return nil, err
+	basereward, baseRewardErr := s.baseRewardService.GetBaseReward()
+	if baseRewardErr != nil {
+		return nil, baseRewardErr
+	}
+
+	incentive, incentiveErr := s.incentiveService.GetIncentive()
+	if incentiveErr != nil {
+		return nil, incentiveErr
 	}
 
 	fmt.Println(basereward)
+	fmt.Println(incentive)
 	return &rewardapi.Response{}, nil
 }
