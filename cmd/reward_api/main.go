@@ -29,6 +29,7 @@ func RunGrpcServer(rewardApiServer *endpoint.RewardApiServer) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer listenPort.Close()
 
 	s := grpc.NewServer()
 	endpoint.RegisterRewardApiServer(s, rewardApiServer)
