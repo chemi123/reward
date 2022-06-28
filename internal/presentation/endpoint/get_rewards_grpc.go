@@ -2,7 +2,7 @@ package endpoint
 
 import (
 	"chemi123/reward/internal/domain/service"
-	service_interface "chemi123/reward/internal/presentation/service_inerface"
+	service_interface "chemi123/reward/internal/presentation/service_interface"
 	rewardapi "chemi123/reward/proto/rewardapipb"
 	"context"
 	"log"
