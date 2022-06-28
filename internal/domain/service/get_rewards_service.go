@@ -21,6 +21,7 @@ func NewGetRewardsService(baseRewardRepository repository.BaseRewardRepositoryIn
 
 // injection等の確認をしたいだけなのでbaserewardをgetしても空のレスポンスを返す
 func (s *GetRewardsService) GetRewards() (*rewardapi.Response, error) {
+	// TODO: goroutineを使って並列化してjoinして返す
 	basereward, err := s.baseRewardService.GetBaseReward()
 	if err != nil {
 		return nil, err
