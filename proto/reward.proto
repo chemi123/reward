@@ -1,0 +1,28 @@
+syntax = "proto3";
+package rewardapi;
+
+// import "google/protobuf/timestamp.proto";
+
+option go_package = "proto/rewardapipb";
+
+service RewardApi {
+	rpc GetRewards (Request) returns (Response) {};
+}
+
+message Offer {
+	string message = 1;
+}
+
+message Request {
+	int32 request_id = 1;
+	repeated Offer offers = 2;
+}
+
+message Reward {
+	int32 request_id = 1;
+	string message = 2;
+}
+
+message Response {
+	repeated Reward rewards = 1;
+}
