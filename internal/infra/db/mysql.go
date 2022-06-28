@@ -23,6 +23,7 @@ func OpenDB(dbName string) (*sql.DB, error) {
 		return nil, openErr
 	}
 
+	// 実際にコネクションが貼られるのはこのタイミング
 	pingErr := db.Ping()
 	if pingErr != nil {
 		return nil, pingErr
