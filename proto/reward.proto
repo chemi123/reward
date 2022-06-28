@@ -9,20 +9,21 @@ service RewardApi {
 	rpc GetRewards (Request) returns (Response) {};
 }
 
-message Offer {
+message Order {
 	string message = 1;
 }
 
 message Request {
 	int32 request_id = 1;
-	repeated Offer offers = 2;
+	Order order = 2;
 }
 
 message Reward {
 	int32 request_id = 1;
 	string message = 2;
+	int32 reward = 3;
 }
 
 message Response {
-	repeated Reward rewards = 1;
+	Reward reward = 1;
 }
