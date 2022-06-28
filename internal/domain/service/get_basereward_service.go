@@ -1,7 +1,7 @@
 package service
 
 import (
-	"chemi123/reward/internal/domain/data"
+	"chemi123/reward/internal/domain/entity"
 	repository "chemi123/reward/internal/domain/repository_inerface"
 )
 
@@ -15,6 +15,6 @@ func NewBaseRewardService(baseRewardRepository repository.BaseRewardRepositoryIn
 	}
 }
 
-func (s *BaseRewardService) GetBaseReward() (data.BaseReward, error) {
+func (s *BaseRewardService) GetBaseReward() (entity.BaseReward, error) {
 	return s.baseRewardRepository.GetById(1)
 }

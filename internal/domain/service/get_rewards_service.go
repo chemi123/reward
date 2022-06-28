@@ -10,8 +10,8 @@ type GetRewardsService struct {
 	baseRewardService *BaseRewardService
 }
 
-func NewGetRewardsService(baseRewardRepository repository.BaseRewardRepositoryInterface) GetRewardsService {
-	return GetRewardsService{
+func NewGetRewardsService(baseRewardRepository repository.BaseRewardRepositoryInterface) *GetRewardsService {
+	return &GetRewardsService{
 		baseRewardService: NewBaseRewardService(
 			baseRewardRepository,
 		),

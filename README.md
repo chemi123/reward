@@ -1,1 +1,2 @@
 # reward
+golangでDDDっぽくgrpc webアプリケーションを作る場合の雛形。正しいDDDかどうかの保証はできない。

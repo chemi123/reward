@@ -15,9 +15,9 @@ type RewardApiServer struct {
 	getRewardsService service_interface.GetRewardsServiceInterface
 }
 
-func NewRewardApiServer(getRewardsService service.GetRewardsService) *RewardApiServer {
+func NewRewardApiServer(getRewardsService *service.GetRewardsService) *RewardApiServer {
 	return &RewardApiServer{
-		getRewardsService: &getRewardsService,
+		getRewardsService: getRewardsService,
 	}
 }
 

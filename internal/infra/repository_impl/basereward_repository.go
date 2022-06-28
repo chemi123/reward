@@ -1,7 +1,7 @@
 package repository_impl
 
 import (
-	"chemi123/reward/internal/domain/data"
+	"chemi123/reward/internal/domain/entity"
 	"database/sql"
 )
 
@@ -15,8 +15,8 @@ func NewBaseRewardRepository(db *sql.DB) *BaseRewardRepository {
 	}
 }
 
-func (repository BaseRewardRepository) GetById(id int32) (data.BaseReward, error) {
-	var basereward data.BaseReward
+func (repository *BaseRewardRepository) GetById(id int32) (entity.BaseReward, error) {
+	var basereward entity.BaseReward
 
 	row := repository.db.QueryRow("SELECT id, message FROM basereward WHERE id = ?", id)
 	if err := row.Scan(&basereward.Id, &basereward.Message); err != nil {

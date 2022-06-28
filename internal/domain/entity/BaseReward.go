@@ -1,4 +1,4 @@
-package data
+package entity
 
 type BaseReward struct {
 	Id      int32
