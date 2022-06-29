@@ -2,7 +2,7 @@ package service
 
 import (
 	"chemi123/reward/internal/domain/entity"
-	repository "chemi123/reward/internal/domain/repository_inerface"
+	repository "chemi123/reward/internal/domain/repository_interface"
 )
 
 type BaseRewardService struct {

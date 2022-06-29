@@ -1,4 +1,4 @@
-package repository_inerface
+package repository_interface
 
 import "chemi123/reward/internal/domain/entity"
 

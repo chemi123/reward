@@ -2,7 +2,7 @@ package service
 
 import (
 	"chemi123/reward/internal/domain/entity"
-	repository "chemi123/reward/internal/domain/repository_inerface"
+	repository "chemi123/reward/internal/domain/repository_interface"
 	rewardapi "chemi123/reward/proto/rewardapipb"
 	"errors"
 	"fmt"
