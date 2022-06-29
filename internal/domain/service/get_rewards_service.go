@@ -1,10 +1,14 @@
 package service
 
 import (
+	"chemi123/reward/internal/domain/entity"
 	repository "chemi123/reward/internal/domain/repository_inerface"
 	rewardapi "chemi123/reward/proto/rewardapipb"
+	"errors"
 	"fmt"
 )
+
+const SERVICE_NUM = 2
 
 type GetRewardsService struct {
 	baseRewardService *BaseRewardService
@@ -27,18 +31,44 @@ func NewGetRewardsService(
 
 // injection等の確認をしたいだけなのでbaserewardをgetしても空のレスポンスを返す
 func (s *GetRewardsService) GetRewards() (*rewardapi.Response, error) {
-	// TODO: goroutineを使って並列化してjoinして返す
-	basereward, baseRewardErr := s.baseRewardService.GetBaseReward()
-	if baseRewardErr != nil {
-		return nil, baseRewardErr
+	baseRewardCh := make(chan entity.BaseReward)
+	incentiveCh := make(chan entity.Incenntive)
+	errsCh := make(chan error, SERVICE_NUM)
+
+	go func() {
+		baseReward, err := s.baseRewardService.GetBaseReward()
+		baseRewardCh <- baseReward
+		errsCh <- err
+	}()
+
+	go func() {
+		incentive, err := s.incentiveService.GetIncentive()
+		incentiveCh <- incentive
+		errsCh <- err
+	}()
+
+	var baseReward entity.BaseReward
+	var incentive entity.Incenntive
+	errs := make([]error, 0, SERVICE_NUM)
+
+	// errorもあるのでservice数×2になる
+	for i := 0; i < SERVICE_NUM*2; i++ {
+		select {
+		case baseReward = <-baseRewardCh:
+		case incentive = <-incentiveCh:
+		case err := <-errsCh:
+			if err != nil {
+				fmt.Println(err)
+				errs = append(errs, err)
+			}
+		}
 	}
 
-	incentive, incentiveErr := s.incentiveService.GetIncentive()
-	if incentiveErr != nil {
-		return nil, incentiveErr
+	if len(errs) != 0 {
+		return nil, errors.New("error occurred")
 	}
 
-	fmt.Println(basereward)
+	fmt.Println(baseReward)
 	fmt.Println(incentive)
 	return &rewardapi.Response{}, nil
 }

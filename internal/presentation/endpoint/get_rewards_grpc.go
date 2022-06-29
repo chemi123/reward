@@ -22,7 +22,7 @@ func NewRewardApiServer(getRewardsService *service.GetRewardsService) *RewardApi
 }
 
 func (s *RewardApiServer) GetRewards(ctx context.Context, request *rewardapi.Request) (*rewardapi.Response, error) {
-	log.Printf("Received %v", request.RequestId)
+	log.Printf("Received a request. request_id: %v", request.RequestId)
 
 	// TODO: 値の詰め替えw
 	return s.getRewardsService.GetRewards()
